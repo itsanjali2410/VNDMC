@@ -37,14 +37,26 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    id: "alex",
-    englishName: "Alex",
-    vietnameseName: "Nguyen Duc Chi",
-    designation: "Assistant Sales Manager",
-    src: "/PMQ Travel_s Profile/Mr. Alex - Assistant Sales Manager/Nguyen Duc Chi - Alex.jpg",
-    alt: "Mr. Alex - Assistant Sales Manager",
-    quote: "Passionate about creating unforgettable travel experiences for every client.",
-    specialty: "Central Vietnam Journeys",
+    id: "sam",
+    englishName: "Sam",
+    vietnameseName: "Le Thi Dieu Hoang",
+    designation: "Director",
+    src: "/PMQ Travel_s Profile/Ms. Sam - Director/Le Thi Dieu Hoang.png",
+    alt: "Ms. Sam - Director",
+    quote: "Leading with vision to create extraordinary travel experiences.",
+    specialty: "Strategic Partnerships & Vision",
+    regions: ["leadership"],
+    contact: "mailto:info@vndmc.com?subject=Hello%20Director%20Sam",
+  },
+  {
+    id: "shu",
+    englishName: "Shu",
+    vietnameseName: "Lê Thị Lệ Thu",
+    designation: "Executive Assistant Director",
+    src: "/PMQ Travel_s Profile/Ms. Shu - Executive Assistant Director/Lê Thị Lệ Thu.png",
+    alt: "Ms. Shu - Executive Assistant Director",
+    quote: "Ensuring excellence in every aspect of our operations.",
+    specialty: "Operations & Quality Assurance",
     regions: ["leadership", "operations"],
   },
   {
@@ -69,17 +81,16 @@ const teamMembers: TeamMember[] = [
     specialty: "",
     regions: [],
   },
-  
   {
-    id: "mark",
-    englishName: "Mark",
-    vietnameseName: "Võ Văn Mạnh",
-    designation: "Sale Executive",
-    src: "/PMQ Travel_s Profile/Mr. Mark - Sale Excutives/Võ Văn Mạnh.jpg",
-    alt: "Mr. Mark - Sale Executive",
-    quote: "Dedicated to making your journey smooth and memorable.",
-    specialty: "Da Nang & Coastal Experiences",
-    regions: ["operations"],
+    id: "april",
+    englishName: "April",
+    vietnameseName: "Ms. April",
+    designation: "Sales Manager",
+    src: "/PMQ Travel_s Profile/Ms. April - Sales Manager/z7100791786062_f3e74722a42a634586f78f6dc2f53035.jpg",
+    alt: "Ms. April - Sales Manager",
+    quote: "Leading our team with passion and expertise in travel management.",
+    specialty: "Sales Leadership & Strategy",
+    regions: ["leadership"],
   },
   {
     id: "mo",
@@ -92,6 +103,54 @@ const teamMembers: TeamMember[] = [
     specialty: "Nationwide Tailor-Made Programs",
     regions: ["leadership", "operations"],
   },
+  {
+    id: "sarah",
+    englishName: "Sarah",
+    vietnameseName: "Trần Thị Duy Phước",
+    designation: "Senior Sale Executive",
+    src: "/PMQ Travel_s Profile/Ms. Sarah - Senior Sale Executive/Trần Thị Duy Phước - Senior Sales Executive.png",
+    alt: "Ms. Sarah - Senior Sale Executive",
+    quote: "Years of experience in crafting perfect travel itineraries.",
+    specialty: "Central Coast MICE Specialist",
+    regions: ["leadership", "operations"],
+  },
+  {
+    id: "lynn",
+    englishName: "Lynn",
+    vietnameseName: "Nguyễn Mai Linh",
+    designation: "Senior Sale Executive",
+    src: "/PMQ Travel_s Profile/Ms. Lynn - Senior Sale Executive/Nguyễn Mai Linh - Lynn.jpg",
+    alt: "Ms. Lynn - Senior Sale Executive",
+    quote: "Expert in luxury travel and exceptional customer service.",
+    specialty: "Luxury Beach Resorts",
+    regions: ["leadership"],
+  },
+
+
+  {
+    id: "alex",
+    englishName: "Alex",
+    vietnameseName: "Nguyen Duc Chi",
+    designation: "Assistant Sales Manager",
+    src: "/PMQ Travel_s Profile/Mr. Alex - Assistant Sales Manager/Nguyen Duc Chi - Alex.jpg",
+    alt: "Mr. Alex - Assistant Sales Manager",
+    quote: "Passionate about creating unforgettable travel experiences for every client.",
+    specialty: "Central Vietnam Journeys",
+    regions: ["leadership", "operations"],
+  },
+
+  {
+    id: "mark",
+    englishName: "Mark",
+    vietnameseName: "Võ Văn Mạnh",
+    designation: "Sale Executive",
+    src: "/PMQ Travel_s Profile/Mr. Mark - Sale Excutives/Võ Văn Mạnh.jpg",
+    alt: "Mr. Mark - Sale Executive",
+    quote: "Dedicated to making your journey smooth and memorable.",
+    specialty: "Da Nang & Coastal Experiences",
+    regions: ["operations"],
+  },
+
   {
     id: "anna",
     englishName: "Anna",
@@ -114,17 +173,7 @@ const teamMembers: TeamMember[] = [
     specialty: "Hue Heritage Trails",
     regions: ["operations"],
   },
-  {
-    id: "april",
-    englishName: "April",
-    vietnameseName: "Ms. April",
-    designation: "Sales Manager",
-    src: "/PMQ Travel_s Profile/Ms. April - Sales Manager/z7100791786062_f3e74722a42a634586f78f6dc2f53035.jpg",
-    alt: "Ms. April - Sales Manager",
-    quote: "Leading our team with passion and expertise in travel management.",
-    specialty: "Sales Leadership & Strategy",
-    regions: ["leadership"],
-  },
+
   {
     id: "daisy",
     englishName: "Daisy",
@@ -180,17 +229,7 @@ const teamMembers: TeamMember[] = [
     specialty: "Da Nang Family Holidays",
     regions: ["operations"],
   },
-  {
-    id: "lynn",
-    englishName: "Lynn",
-    vietnameseName: "Nguyễn Mai Linh",
-    designation: "Senior Sale Executive",
-    src: "/PMQ Travel_s Profile/Ms. Lynn - Senior Sale Executive/Nguyễn Mai Linh - Lynn.jpg",
-    alt: "Ms. Lynn - Senior Sale Executive",
-    quote: "Expert in luxury travel and exceptional customer service.",
-    specialty: "Luxury Beach Resorts",
-    regions: ["leadership"],
-  },
+
   {
     id: "my",
     englishName: "My",
@@ -235,40 +274,8 @@ const teamMembers: TeamMember[] = [
     specialty: "Outbound Leisure Programs",
     regions: ["marketing"],
   },
-  {
-    id: "sam",
-    englishName: "Sam",
-    vietnameseName: "Le Thi Dieu Hoang",
-    designation: "Director",
-    src: "/PMQ Travel_s Profile/Ms. Sam - Director/Le Thi Dieu Hoang.png",
-    alt: "Ms. Sam - Director",
-    quote: "Leading with vision to create extraordinary travel experiences.",
-    specialty: "Strategic Partnerships & Vision",
-    regions: ["leadership"],
-    contact: "mailto:info@vndmc.com?subject=Hello%20Director%20Sam",
-  },
-  {
-    id: "sarah",
-    englishName: "Sarah",
-    vietnameseName: "Trần Thị Duy Phước",
-    designation: "Senior Sale Executive",
-    src: "/PMQ Travel_s Profile/Ms. Sarah - Senior Sale Executive/Trần Thị Duy Phước - Senior Sales Executive.png",
-    alt: "Ms. Sarah - Senior Sale Executive",
-    quote: "Years of experience in crafting perfect travel itineraries.",
-    specialty: "Central Coast MICE Specialist",
-    regions: ["leadership", "operations"],
-  },
-  {
-    id: "shu",
-    englishName: "Shu",
-    vietnameseName: "Lê Thị Lệ Thu",
-    designation: "Executive Assistant Director",
-    src: "/PMQ Travel_s Profile/Ms. Shu - Executive Assistant Director/Lê Thị Lệ Thu.png",
-    alt: "Ms. Shu - Executive Assistant Director",
-    quote: "Ensuring excellence in every aspect of our operations.",
-    specialty: "Operations & Quality Assurance",
-    regions: ["leadership", "operations"],
-  },
+
+
   {
     id: "thao",
     englishName: "Thao",
@@ -298,7 +305,7 @@ const formatImagePath = (path: string): string => {
     .split("/")
     .map(segment => {
       if (!segment) return segment;
-    return encodeURIComponent(segment);
+      return encodeURIComponent(segment);
     })
     .join("/");
 };
@@ -317,9 +324,9 @@ const AboutPage: React.FC = () => {
               {heroContent.tagline}
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 max-w-4xl mx-auto lg:mx-0">
-              Crafting Bold Vietnamese Journeys 
+              Crafting Bold Vietnamese Journeys
             </h1>
-            
+
           </div>
         </div>
       </section>
@@ -343,7 +350,7 @@ const AboutPage: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Meet the team that connects you to Vietnam
             </h2>
-           
+
           </div>
 
           <div className="mt-12 -mx-4 sm:mx-0">
