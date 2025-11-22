@@ -48,6 +48,29 @@ const teamMembers: TeamMember[] = [
     regions: ["leadership", "operations"],
   },
   {
+    id: "kunal",
+    englishName: "Kunal R",
+    vietnameseName: "Kunal R",
+    designation: "Business Head",
+    src: "/Kunal Headshot image.png",
+    alt: "Kunal R - Business Head",
+    quote: "",
+    specialty: "",
+    regions: ["leadership"],
+  },
+  {
+    id: "gaurav",
+    englishName: "Gaurav",
+    vietnameseName: "Gaurav",
+    designation: "Sales head",
+    src: "/gaurav.jpeg",
+    alt: "Gaurav",
+    quote: "",
+    specialty: "",
+    regions: [],
+  },
+  
+  {
     id: "mark",
     englishName: "Mark",
     vietnameseName: "Võ Văn Mạnh",
@@ -308,25 +331,6 @@ const AboutPage: React.FC = () => {
               {paragraph}
             </p>
           ))}
-          <div className="max-w-3xl mx-auto lg:mx-0 flex flex-col sm:flex-row items-center gap-6 border border-gray-100 rounded-3xl p-6 shadow-sm">
-            <div className="w-32 h-32 rounded-full overflow-hidden border border-gray-200">
-              <img
-                src={formatImagePath(heroContent.leader.image)}
-                alt={heroContent.leader.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <p className="text-xs uppercase tracking-[0.3em] text-emerald-500">
-                {heroContent.welcomeLabel}
-              </p>
-              <h2 className="text-2xl font-semibold text-gray-900 mt-2">{heroContent.leader.name}</h2>
-              <p className="text-sm text-gray-500">{heroContent.leader.title}</p>
-              <p className="text-sm text-gray-700 leading-relaxed mt-3">
-                {heroContent.leader.message}
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -345,11 +349,6 @@ const AboutPage: React.FC = () => {
           <div className="mt-12 -mx-4 sm:mx-0">
             <div className="flex gap-4 overflow-x-auto px-4 pb-6 sm:grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-6 sm:overflow-visible sm:px-0">
               {filteredMembers.map(member => {
-                const displayName =
-                  member.vietnameseName && member.vietnameseName !== member.englishName
-                    ? `${member.englishName} (${member.vietnameseName})`
-                    : member.englishName;
-
                 return (
                   <div
                     key={member.id}
@@ -363,7 +362,10 @@ const AboutPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{displayName}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">{member.englishName}</h3>
+                      {member.designation && (
+                        <p className="text-sm text-emerald-600 font-medium mt-1">{member.designation}</p>
+                      )}
                     </div>
                   </div>
                 );
