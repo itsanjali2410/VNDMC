@@ -7,13 +7,18 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/packages") {
+      return location.pathname.startsWith("/packages");
+    }
+    return location.pathname === path;
+  };
 
   const menuLinks = [
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/services", label: "Services" },
-    { path: "/destinations", label: "Destinations" },
+    { path: "/packages", label: "Packages" },
     { path: "/contact", label: "Contact" },
   ];
 
