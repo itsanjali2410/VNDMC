@@ -1,0 +1,121 @@
+{
+  "id": "ho-chi-minh-private-3d2n",
+  "agent": "Tripstars Ops",
+  "packageName": "3D2N – Ho Chi Minh Private Essentials",
+  "option": "Private Touring · Breakfast Plan",
+  "travelWindow": "14 – 16 January 2025 departures",
+  "note": "Rates in USD per person, twin sharing",
+  "paxGroups": [],
+  "pricing": [],
+  "airportTransfer": ["Private 4-seat car throughout"],
+  "summaryItinerary": [
+    "Day 1 (14 Jan): Ho Chi Minh Arrival – Private Cu Chi Tunnels (No meal)",
+    "Day 2 (15 Jan): Ho Chi Minh – Private Mekong Delta Tour (Breakfast)",
+    "Day 3 (16 Jan): Ho Chi Minh Departure (Breakfast)"
+  ],
+  "detailedItinerary": [
+    {
+      "day": "Day 1",
+      "dateLabel": "14 Jan",
+      "title": "Ho Chi Minh Arrival – Private Afternoon Cu Chi Tunnels (No meal)",
+      "details": [
+        "Arrive in Ho Chi Minh City and meet the private driver for transfer to the hotel for baggage storage.",
+        "12:30 – Depart for Cu Chi Tunnels, a legendary 220 km underground network from the Vietnam War era.",
+        "Discover tunnel life, hidden entrances, and wartime relics while the guide shares historical insights.",
+        "18:30 – Return to the hotel for check-in, free evening and overnight in Ho Chi Minh City."
+      ]
+    },
+    {
+      "day": "Day 2",
+      "dateLabel": "15 Jan",
+      "title": "Private Mekong Delta Discovery (Breakfast)",
+      "details": [
+        "Breakfast at hotel.",
+        "08:30 – Pick-up for a scenic drive through rice paddies and orchards toward My Tho.",
+        "Board a motor boat along the Mekong River, visit local villages, and ride a rowing boat through coconut canals.",
+        "Continue to Ben Tre for a handmade coconut candy workshop and taste tropical fruits with traditional music.",
+        "Return by boat and drive back to Saigon; arrival around 17:00. Evening at leisure."
+      ]
+    },
+    {
+      "day": "Day 3",
+      "dateLabel": "16 Jan",
+      "title": "Ho Chi Minh Departure (Breakfast)",
+      "details": [
+        "Breakfast at hotel and leisure time.",
+        "Check-out by 12:00.",
+        "Private transfer to Ho Chi Minh City (SGN) airport for departure. Tour ends."
+      ]
+    }
+  ],
+  "includes": [
+    "Roundtrip airport transfers by private 4-seat car without guide.",
+    "Meals mentioned in itinerary: 2 breakfasts.",
+    "02 nights accommodation in standard room at Alagon Saigon Hotel & Spa (Premier Deluxe Double).",
+    "Entrance fees specified in the itinerary.",
+    "Mekong Delta boat trip.",
+    "Tips for private tour team.",
+    "1 bottle of 500ml water per person per touring day.",
+    "Private tours and transfers using air-conditioned 4-seat car with English-speaking local guide."
+  ],
+  "excludes": [
+    "Meals and services not mentioned.",
+    "Cu Chi Tunnel gun shooting activity.",
+    "Personal expenses such as laundry or phone calls.",
+    "International flights.",
+    "Vietnam single-entry e-visa.",
+    "Compulsory travel insurance.",
+    "Early check-in or late check-out at hotels.",
+    "Costs from force majeure events (weather, strikes, natural disasters).",
+    "Peak-season surcharges for listed holidays and Da Nang International Firework Festival 2026."
+  ],
+  "hotelPackages": [
+    {
+      "tier": "4-star Package",
+      "hotels": [
+        {
+          "city": "Ho Chi Minh",
+          "property": "Alagon Saigon Hotel & Spa",
+          "room": "Premier Deluxe Double Room"
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "notes": [
+      "Hotels subject to availability (check-in 14:00, check-out 12:00).",
+      "Flight fares subject to change.",
+      "Passports must be valid for at least 6 months beyond return date.",
+      "Print the e-visa for smooth immigration.",
+      "Guests must be punctual for join-in tours; meals are served at local restaurants.",
+      "Children from 10 years old are considered adults.",
+      "Transportation outside scheduled times may incur additional charges."
+    ],
+    "childrenPolicy": [
+      "Children from 10 years old are considered adults."
+    ],
+    "validity": "Rates valid until 15 November 2025 (services subject to confirmation).",
+    "deposit": [
+      "50% deposit upon confirmation.",
+      "Remaining 50% due 10 days before arrival."
+    ],
+    "cancellation": [
+      "Flights and visa fees are non-refundable.",
+      "0–7 days prior: 100% charge (less flights & visa).",
+      "8–14 days prior: 50% charge.",
+      "15–29 days prior: 25% charge.",
+      "30+ days prior: 10% charge."
+    ],
+    "terms": [
+      "Guests bear expenses from flight delays or cancellations; assistance provided when possible.",
+      "Travelers must secure valid passports/visas; cancellation policy applies if documents are invalid."
+    ],
+    "paymentMethods": [
+      "Option 1: Bank transfer to Vietcombank (Phu Minh Quang Travel, USD 103-7-140-579, SWIFT BFTVVNVX, HQ 198 Tran Quang Khai, Hanoi).",
+      "Option 2: Online credit card payment link (3.3% fee).",
+      "Option 3: Western Union to Le Thi Dieu Hoang (ID 046179011822, Phone +84 935 555 135).",
+      "All bank fees are borne by the customer."
+    ]
+  }
+}
+

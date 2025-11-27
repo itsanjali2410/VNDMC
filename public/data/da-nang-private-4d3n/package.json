@@ -1,0 +1,134 @@
+{
+  "id": "da-nang-private-4d3n",
+  "agent": "Tripstars Ops",
+  "packageName": "4D3N – Da Nang Private Highlights",
+  "option": "Private Touring · Breakfast Plan",
+  "travelWindow": "14 – 17 January 2025 departures",
+  "note": "Rates in USD per person on twin sharing",
+  "paxGroups": [],
+  "pricing": [],
+  "airportTransfer": ["Private 4-seat car throughout"],
+  "summaryItinerary": [
+    "Day 1 (14 Jan): Da Nang Arrival – Free Leisure (No meal)",
+    "Day 2 (15 Jan): Private Marble Mountain & Hoi An Afternoon Tour (Breakfast)",
+    "Day 3 (16 Jan): Private Ba Na Hills & Golden Bridge Day Tour (Breakfast)",
+    "Day 4 (17 Jan): Da Nang Departure (Breakfast)"
+  ],
+  "detailedItinerary": [
+    {
+      "day": "Day 1",
+      "dateLabel": "14 Jan",
+      "title": "Da Nang Arrival – Free Leisure (No meal)",
+      "details": [
+        "Arrive in Da Nang where the private driver meets you for transfer to the hotel for baggage storage.",
+        "Check-in available from 14:00; enjoy the remainder of the day at leisure.",
+        "Overnight in Da Nang."
+      ]
+    },
+    {
+      "day": "Day 2",
+      "dateLabel": "15 Jan",
+      "title": "Private Afternoon Marble Mountain – Hoi An Tour (Breakfast)",
+      "details": [
+        "Breakfast at hotel and free time until afternoon departure.",
+        "15:15 – 15:45: Guide and driver pick up for Marble Mountain (Ngu Hanh Son) to explore the five-element peaks, Tam Thai Pagoda, Linh Ung Pagoda, and Non Nuoc stone village.",
+        "18:00: Depart to Hoi An Ancient Town for a walking tour covering Japanese Bridge, lantern streets, and riverside night market.",
+        "21:00: Drop off at hotel; overnight in Da Nang."
+      ]
+    },
+    {
+      "day": "Day 3",
+      "dateLabel": "16 Jan",
+      "title": "Private Ba Na Hills & Golden Bridge Tour (Breakfast)",
+      "details": [
+        "Breakfast at hotel.",
+        "08:30: Private transfer along the scenic coastline to Ba Na Hills.",
+        "Ride UNESCO-record cable cars to visit Golden Bridge, French village, Linh Ung Pagoda, Fantasy Park, and Nui Chua Peak with Linh Tu Temple.",
+        "Descend by cable car and return to Da Nang around 17:00 – 17:30.",
+        "Evening at leisure; overnight in Da Nang."
+      ]
+    },
+    {
+      "day": "Day 4",
+      "dateLabel": "17 Jan",
+      "title": "Da Nang Departure (Breakfast)",
+      "details": [
+        "Breakfast at hotel and check-out by 12:00.",
+        "Private transfer to Da Nang International Airport for departure flight.",
+        "Tour ends."
+      ]
+    }
+  ],
+  "includes": [
+    "Roundtrip airport transfers by private 4-seat car without guide.",
+    "Meals mentioned in itinerary: 3 breakfasts.",
+    "03 nights accommodation in standard room at a 4-star hotel.",
+    "Entrance fees noted in the itinerary.",
+    "Ba Na Hills cable car tickets.",
+    "Tips for private touring team.",
+    "1 bottle of 500ml water per guest per touring day.",
+    "Private tours and transfers using air-conditioned 4-seat car with English-speaking local guide."
+  ],
+  "excludes": [
+    "International flights.",
+    "Ba Na Hills add-ons (Wax Museum, Wine Cellar Debay, Alpine Coaster, coin-operated games).",
+    "Meals or services not specified.",
+    "Hoi An lantern boating.",
+    "Vietnam single-entry e-visa (normal process).",
+    "Personal expenses such as laundry, telephone calls, and beverages.",
+    "Compulsory travel insurance.",
+    "Early check-in or late check-out at hotels.",
+    "Expenses due to force majeure (weather, strikes, natural disasters).",
+    "Peak-season surcharges for listed public holidays and Da Nang International Firework Festival 2026."
+  ],
+  "hotelPackages": [
+    {
+      "tier": "4-star Package",
+      "hotels": [
+        {
+          "city": "Da Nang",
+          "property": "Yarra Ocean Da Nang Hotel",
+          "room": "1 Yarra Double Partial Ocean View Room"
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "notes": [
+      "Hotels subject to availability (check-in 14:00, check-out 12:00).",
+      "Flight fares subject to change.",
+      "Passports must have 6+ months validity beyond return date.",
+      "Print the e-visa for smooth immigration.",
+      "Guests must be punctual for join-in tours.",
+      "Meals during join-in tours served at local restaurants.",
+      "Children from 10 years old are charged adult rates.",
+      "Transportation outside scheduled times may incur additional charges."
+    ],
+    "childrenPolicy": [
+      "Children from 10 years old are considered adults."
+    ],
+    "validity": "Rates valid until 15 November 2025 (services subject to confirmation).",
+    "deposit": [
+      "50% deposit upon confirmation.",
+      "Remaining 50% due 10 days before arrival."
+    ],
+    "cancellation": [
+      "Flights and visa fees are non-refundable.",
+      "0–7 days prior: 100% charge (less flights & visa).",
+      "8–14 days prior: 50% charge.",
+      "15–29 days prior: 25% charge.",
+      "30+ days prior: 10% charge."
+    ],
+    "terms": [
+      "Guests cover expenses from flight delays/cancellations; assistance provided when possible.",
+      "Travelers must hold valid passports/visas; cancellations follow booking terms if documents are invalid."
+    ],
+    "paymentMethods": [
+      "Option 1: Bank transfer to Vietcombank (Account: Phu Minh Quang Travel, USD 103-7-140-579, SWIFT BFTVVNVX, HQ address 198 Tran Quang Khai, Hanoi).",
+      "Option 2: Online credit card payment link (3.3% fee).",
+      "Option 3: Western Union to Le Thi Dieu Hoang (ID 046179011822, Phone +84 935 555 135).",
+      "All bank fees are borne by the customer."
+    ]
+  }
+}
+

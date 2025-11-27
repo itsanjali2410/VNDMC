@@ -1,0 +1,134 @@
+{
+  "id": "da-nang-short-break-4d3n",
+  "agent": "Tripstars Ops",
+  "packageName": "4D3N – Da Nang Highlights Getaway",
+  "option": "Private Touring · Breakfast Plan",
+  "travelWindow": "14 – 17 January 2025 departures",
+  "note": "Custom quote on request",
+  "paxGroups": [],
+  "pricing": [],
+  "airportTransfer": ["Private 4-seat car throughout"],
+  "summaryItinerary": [
+    "Day 1 (14 Jan): Da Nang Arrival – Free Leisure",
+    "Day 2 (15 Jan): Private Marble Mountain & Hoi An Afternoon Tour",
+    "Day 3 (16 Jan): Private Ba Na Hills & Golden Bridge Tour",
+    "Day 4 (17 Jan): Da Nang Departure"
+  ],
+  "detailedItinerary": [
+    {
+      "day": "Day 1",
+      "dateLabel": "14 Jan",
+      "title": "Da Nang Arrival – Free Leisure (No meal)",
+      "details": [
+        "Arrive in Da Nang where a private driver meets you for hotel transfer and baggage storage.",
+        "Check-in from 14:00 and enjoy leisure time along My Khe beach.",
+        "Overnight in Da Nang."
+      ]
+    },
+    {
+      "day": "Day 2",
+      "dateLabel": "15 Jan",
+      "title": "Private Afternoon Marble Mountain – Hoi An Tour (Breakfast)",
+      "details": [
+        "Breakfast at hotel and free time until afternoon pickup (15:15 – 15:45).",
+        "Visit Marble Mountain complex (Kim, Moc, Thuy, Hoa, Tho) plus Tam Thai & Linh Ung Pagodas and Non Nuoc stone village.",
+        "18:00 – Travel to Hoi An Ancient Town for lantern-lit streets, Japanese Bridge, and riverside night market.",
+        "21:00 – Return to Da Nang hotel; overnight in Da Nang."
+      ]
+    },
+    {
+      "day": "Day 3",
+      "dateLabel": "16 Jan",
+      "title": "Private Ba Na Hills & Golden Bridge Tour (Breakfast)",
+      "details": [
+        "Breakfast at hotel.",
+        "08:30 – Depart via scenic coastal road to Ba Na Hills with private guide.",
+        "Enjoy UNESCO-record cable cars, Golden Bridge, French Village, Linh Ung Pagoda, Fantasy Park, and Nui Chua peak.",
+        "17:00 – 17:30 – Return to Da Nang hotel; free evening."
+      ]
+    },
+    {
+      "day": "Day 4",
+      "dateLabel": "17 Jan",
+      "title": "Da Nang Departure (Breakfast)",
+      "details": [
+        "Breakfast at hotel and check-out by 12:00.",
+        "Private 4-seat transfer to Da Nang International Airport for departure flight.",
+        "Tour ends — thank you for booking with us!"
+      ]
+    }
+  ],
+  "includes": [
+    "Roundtrip airport transfer by private 4-seat car without guide.",
+    "Meals mentioned in itinerary: 3 breakfasts.",
+    "03 nights accommodation in standard room.",
+    "Entrance fees mentioned in itinerary.",
+    "Ba Na Hills cable car tickets.",
+    "Tips for private touring team.",
+    "1 bottle of 500ml water per guest per touring day.",
+    "Private tours and transfers using air-conditioned 4-seat car with English-speaking local guide."
+  ],
+  "excludes": [
+    "International flights.",
+    "Ba Na Hills add-ons (Wax Museum, Wine Cellar Debay, Alpine Coaster, coin-operated games).",
+    "Other meals or services not specified.",
+    "Hoi An lantern boating.",
+    "Vietnam single-entry e-visa (normal process).",
+    "Personal expenses such as laundry, telephone calls, and beverages.",
+    "Compulsory travel insurance.",
+    "Early check-in and late check-out at hotels.",
+    "Expenses due to force majeure (weather, strikes, natural disasters).",
+    "Peak-season surcharges for listed public holidays and festivals."
+  ],
+  "hotelPackages": [
+    {
+      "tier": "4-star Package",
+      "hotels": [
+        {
+          "city": "Da Nang",
+          "property": "Yarra Ocean Da Nang Hotel",
+          "room": "1 Yarra Double Partial Ocean View Room"
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "notes": [
+      "Hotels are subject to availability (check-in 14:00, check-out 12:00).",
+      "Flight fares subject to change; passports must be valid for at least 6 months beyond return date.",
+      "Print the e-visa for smooth immigration; punctuality is required for all tours.",
+      "Meals during shared tours (if any) served at local restaurants; additional transport outside schedule may incur charges."
+    ],
+    "childrenPolicy": [
+      "Max 1 child per standard room; second child considered an adult.",
+      "1–4 years (<1m): FOC sharing bed with parents (parents cover incidental costs).",
+      "4–9 years (1–1.4m): 50% adult rate without extra bed.",
+      "4–9 years (>1.4m): 80% adult rate without extra bed.",
+      "7–9 years (>1.4m): 90% adult rate with extra bed.",
+      "10+ years: adult rate with extra bed."
+    ],
+    "validity": "Rates valid until 15 November 2025 (services subject to confirmation).",
+    "deposit": [
+      "50% deposit upon confirmation.",
+      "Remaining 50% due 10 days before arrival."
+    ],
+    "cancellation": [
+      "Flights and visa fees are non-refundable.",
+      "0–7 days prior: 100% charge (less flights & visa).",
+      "8–14 days prior: 50% charge.",
+      "15–29 days prior: 25% charge.",
+      "30+ days prior: 10% charge."
+    ],
+    "terms": [
+      "Guests cover expenses from flight delays/cancellations; assistance provided when possible.",
+      "Travelers must hold valid passports/visas; cancellations follow booking terms if documents are invalid."
+    ],
+    "paymentMethods": [
+      "Option 1: Bank transfer to Vietcombank (Phu Minh Quang Travel, USD 103-7-140-579, SWIFT BFTVVNVX).",
+      "Option 2: Online credit card link (3.3% surcharge).",
+      "Option 3: Western Union to Le Thi Dieu Hoang (ID 046179011822, +84 935 555 135).",
+      "All bank fees are borne by the customer."
+    ]
+  }
+}
+

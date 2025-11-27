@@ -5,12 +5,38 @@ let cachedPackages: TravelPackage[] | null = null;
 let cachedError: string | null = null;
 let inflightRequest: Promise<TravelPackage[]> | null = null;
 
+const fetchPackageFile = async (packageId: string): Promise<TravelPackage> => {
+  const response = await fetch(`/data/${packageId}/package.json`, { cache: "no-cache" });
+  if (!response.ok) {
+    throw new Error(`Unable to load package: ${packageId}`);
+  }
+  return response.json();
+};
+
 const fetchPackages = async (): Promise<TravelPackage[]> => {
   const response = await fetch("/data/packages.json", { cache: "no-cache" });
   if (!response.ok) {
     throw new Error("Unable to load packages");
   }
-  return response.json();
+
+  const payload = await response.json();
+
+  if (Array.isArray(payload)) {
+    if (payload.length === 0) return [];
+
+    const firstItem = payload[0];
+
+    if (typeof firstItem === "string") {
+      const packageData = await Promise.all(payload.map(id => fetchPackageFile(id)));
+      return packageData;
+    }
+
+    if (typeof firstItem === "object" && firstItem !== null) {
+      return payload as TravelPackage[];
+    }
+  }
+
+  throw new Error("Invalid packages data structure");
 };
 
 export const usePackages = () => {
