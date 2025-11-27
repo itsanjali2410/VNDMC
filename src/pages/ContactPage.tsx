@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Calendar} from 'lucide-react';
+import { MapPin, Phone, Mail, Send, MessageCircle, Calendar} from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
