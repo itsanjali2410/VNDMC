@@ -255,19 +255,6 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Office Locations */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Office Locations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Visit us at any of our convenient locations across Vietnam
-            </p>
-          </div>
-          
-          
-        </div>
-      </section>
 
       {/* FAQ Section */}
       <section className="py-20 bg-gray-50">
