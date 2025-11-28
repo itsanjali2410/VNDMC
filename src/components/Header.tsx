@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Phone, Mail } from "lucide-react";
 import StaggeredMenu from "./StaggeredMenu";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
-  const [] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => {
@@ -89,7 +87,7 @@ const Header = () => {
             </nav>
 
             {/* Mobile StaggeredMenu */}
-            <div className="d-md-none" style={{ position: 'relative', width: 'auto', height: 'auto' }}>
+            <div className="d-md-none" style={{ position: 'relative', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
               <StaggeredMenu
                 position="right"
                 items={staggeredMenuItems}
@@ -98,7 +96,7 @@ const Header = () => {
                 displayItemNumbering={true}
                 menuButtonColor="#000"
                 openMenuButtonColor="#000"
-                changeMenuColorOnOpen={true}
+                changeMenuColorOnOpen={false}
                 colors={['#10b981', '#059669']}
                 logoUrl=""
                 accentColor="#10b981"

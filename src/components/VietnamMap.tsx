@@ -187,13 +187,21 @@ const VietnamMap: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gradient-to-br from-emerald-50 to-blue-50">
+    <div className="relative w-full h-[350px] sm:h-[450px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gradient-to-br from-emerald-50 via-blue-50 to-emerald-50">
       <svg
         ref={mapRef}
         viewBox="0 0 100 120"
         className="w-full h-full"
         preserveAspectRatio="xMidYMid meet"
       >
+        {/* Background pattern */}
+        <defs>
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(16, 185, 129, 0.1)" strokeWidth="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="100" height="120" fill="url(#grid)" />
+        
         {/* Vietnam outline - Stylized S-shape */}
         <path
           ref={pathRef}
@@ -219,28 +227,10 @@ const VietnamMap: React.FC = () => {
              Q 38 22 40 18
              L 42 12
              Q 40 8 42 8 Z"
-          fill="rgba(16, 185, 129, 0.15)"
+          fill="rgba(16, 185, 129, 0.2)"
           stroke="#10b981"
-          strokeWidth="0.6"
+          strokeWidth="0.8"
           className="vietnam-outline"
-        />
-        
-        {/* Additional detail lines */}
-        <path
-          d="M 50 48 Q 52 55 50 62"
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="0.3"
-          opacity="0.5"
-          className="detail-line"
-        />
-        <path
-          d="M 45 92 Q 42 88 40 85"
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="0.3"
-          opacity="0.5"
-          className="detail-line"
         />
 
         {/* Destinations markers */}
@@ -259,48 +249,56 @@ const VietnamMap: React.FC = () => {
               className="pulse-ring"
               cx="0"
               cy="0"
-              r="3"
+              r="4"
               fill={destination.color}
-              opacity="0.6"
+              opacity="0.4"
             />
             
-            {/* Pin icon */}
-            <g className="pin-icon" transform="translate(0, -4)">
+            {/* Pin icon with better design */}
+            <g className="pin-icon" transform="translate(0, -5)">
               <circle
                 cx="0"
                 cy="0"
-                r="2.5"
+                r="3.5"
                 fill={destination.color}
                 stroke="white"
-                strokeWidth="0.5"
+                strokeWidth="0.8"
+                className="drop-shadow-lg"
               />
               <circle
                 cx="0"
                 cy="0"
-                r="1"
+                r="1.5"
                 fill="white"
+              />
+              <circle
+                cx="0"
+                cy="0"
+                r="0.8"
+                fill={destination.color}
               />
             </g>
 
             {/* Destination label */}
             {hoveredDestination === destination.name && (
-              <g className="label" transform="translate(0, -8)">
+              <g className="label" transform="translate(0, -12)">
                 <rect
-                  x="-15"
-                  y="-4"
-                  width="30"
-                  height="8"
-                  rx="4"
+                  x="-18"
+                  y="-5"
+                  width="36"
+                  height="10"
+                  rx="5"
                   fill="white"
-                  opacity="0.95"
+                  opacity="0.98"
                   stroke={destination.color}
-                  strokeWidth="0.3"
+                  strokeWidth="0.5"
+                  className="shadow-lg"
                 />
                 <text
                   x="0"
-                  y="2"
+                  y="2.5"
                   textAnchor="middle"
-                  fontSize="3"
+                  fontSize="3.5"
                   fill={destination.color}
                   fontWeight="bold"
                   className="font-semibold"
@@ -335,22 +333,23 @@ const VietnamMap: React.FC = () => {
 
       {/* Destination info card */}
       {selectedDestination && (
-        <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-64 bg-white rounded-xl shadow-xl p-4 border border-gray-200 animate-in fade-in slide-in-from-bottom-4">
+        <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:w-64 bg-white rounded-xl shadow-xl p-3 sm:p-4 border border-gray-200 animate-in fade-in slide-in-from-bottom-4 z-20">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <h3 className="font-bold text-lg text-gray-900">{selectedDestination.name}</h3>
-              <p className="text-sm text-gray-600">{selectedDestination.description}</p>
+              <h3 className="font-bold text-base sm:text-lg text-gray-900">{selectedDestination.name}</h3>
+              <p className="text-xs sm:text-sm text-gray-600">{selectedDestination.description}</p>
             </div>
             <button
               onClick={() => setSelectedDestination(null)}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors text-lg sm:text-xl leading-none"
+              aria-label="Close"
             >
-              ✕
+              ×
             </button>
           </div>
           <Link
             to="/packages"
-            className="block w-full text-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-semibold mt-3"
+            className="block w-full text-center px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs sm:text-sm font-semibold mt-2 sm:mt-3"
           >
             View Packages
           </Link>
@@ -358,12 +357,12 @@ const VietnamMap: React.FC = () => {
       )}
 
       {/* Legend */}
-      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-md border border-gray-200">
-        <div className="flex items-center gap-2 mb-2">
-          <MapPin className="w-4 h-4 text-emerald-600" />
-          <span className="text-xs font-semibold text-gray-900">Destinations</span>
+      <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/95 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg border border-gray-200">
+        <div className="flex items-center gap-2 mb-1">
+          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
+          <span className="text-[10px] sm:text-xs font-semibold text-gray-900">Destinations</span>
         </div>
-        <p className="text-[10px] text-gray-600">Click markers to explore</p>
+        <p className="text-[9px] sm:text-[10px] text-gray-600">Click to explore</p>
       </div>
     </div>
   );

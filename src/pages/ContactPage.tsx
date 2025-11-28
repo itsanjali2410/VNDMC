@@ -30,7 +30,7 @@ const ContactPage = () => {
       details: [
         "5th Floor, 26 Duong Khue, My An, Ngu Hanh Son, Da Nang, Viet Nam"
       ],
-      color: "bg-emerald-100 text-emerald-600"
+      color: "bg-emerald-50 text-emerald-600"
     },
     {
       icon: Phone,
@@ -40,7 +40,7 @@ const ContactPage = () => {
         // "+0 4 0 2 1 4 5 5 4 1",
         // "24/7 Emergency: +84 555 000 111"
       ],
-      color: "bg-blue-100 text-blue-600"
+      color: "bg-emerald-50 text-emerald-600"
     },
     {
       icon: Mail,
@@ -49,7 +49,7 @@ const ContactPage = () => {
         "sales@vndmc.com",
         
       ],
-      color: "bg-amber-100 text-amber-600"
+      color: "bg-emerald-50 text-emerald-600"
     },
     // {
     //   icon: Clock,
@@ -113,32 +113,32 @@ const ContactPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Call Now</h3>
               <p className="text-emerald-600 font-semibold">+84 0325765379</p>
             </div>
             <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="w-8 h-8 text-blue-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Live Chat</h3>
-              <p className="text-blue-600 font-semibold">Available 24/7</p>
+              <p className="text-emerald-600 font-semibold">Available 24/7</p>
             </div>
             <div className="text-center">
-              <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-amber-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-amber-600 font-semibold">Quick Response</p>
+              <p className="text-emerald-600 font-semibold">Quick Response</p>
             </div>
             <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-purple-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Book Meeting</h3>
-              <p className="text-purple-600 font-semibold">Free Consultation</p>
+              <p className="text-emerald-600 font-semibold">Free Consultation</p>
             </div>
           </div>
         </div>
