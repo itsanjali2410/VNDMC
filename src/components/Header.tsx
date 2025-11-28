@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Phone, Mail } from "lucide-react";
+import StaggeredMenu from "./StaggeredMenu";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => {
@@ -21,6 +22,12 @@ const Header = () => {
     { path: "/packages", label: "Packages" },
     { path: "/contact", label: "Contact" },
   ];
+
+  const staggeredMenuItems = menuLinks.map(link => ({
+    label: link.label,
+    ariaLabel: `Go to ${link.label.toLowerCase()} page`,
+    link: link.path
+  }));
 
   return (
     <header className="fixed-top shadow-sm bg-white" style={{ zIndex: 1050 }}>
@@ -81,39 +88,28 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* Mobile toggle */}
-            <button
-              className="d-md-none btn btn-outline-secondary rounded-circle"
-              style={{ width: "40px", height: "40px" }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <span className="fw-bold">{isMenuOpen ? "✕" : "☰"}</span>
-            </button>
+            {/* Mobile StaggeredMenu */}
+            <div className="d-md-none" style={{ position: 'relative', width: 'auto', height: 'auto' }}>
+              <StaggeredMenu
+                position="right"
+                items={staggeredMenuItems}
+                socialItems={[]}
+                displaySocials={false}
+                displayItemNumbering={true}
+                menuButtonColor="#000"
+                openMenuButtonColor="#000"
+                changeMenuColorOnOpen={true}
+                colors={['#10b981', '#059669']}
+                logoUrl=""
+                accentColor="#10b981"
+                isFixed={true}
+                closeOnClickAway={true}
+                onMenuOpen={() => {}}
+                onMenuClose={() => {}}
+              />
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile menu */}
-      <div
-        className={`d-md-none bg-white border-top shadow-sm overflow-hidden transition-all ${
-          isMenuOpen ? "max-h-96" : "max-h-0"
-        }`}
-        style={{ transition: "max-height 0.4s ease" }}
-      >
-        <nav className="d-flex flex-column px-4 py-3 gap-3">
-          {menuLinks.map((link, idx) => (
-            <Link
-              key={idx}
-              to={link.path}
-              className={`text-decoration-none fw-medium py-2 px-2 rounded ${
-                isActive(link.path) ? "text-success bg-light" : "text-dark"
-              }`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
       </div>
     </header>
   );

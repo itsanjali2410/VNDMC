@@ -110,7 +110,7 @@ const NineDaySignaturePage: React.FC<{ pkg: TravelPackage }> = ({ pkg }) => {
                 </p>
                 <h1 className="text-3xl font-semibold mt-2">{pkg.packageName}</h1>
                 <p className="text-sm text-gray-500">
-                  {pkg.travelWindow} • {pkg.option}
+                  {pkg.option}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -362,10 +362,6 @@ const PackagePriceCard: React.FC<{ pkg: TravelPackage; leadPrice: string | null 
       <div className="space-y-4 text-sm text-gray-700">
         <div className="flex gap-3">
           <BadgeCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-          <div>
-            <p className="font-semibold text-gray-900">Travel Window</p>
-            <p>{pkg.travelWindow}</p>
-          </div>
         </div>
         <div className="flex gap-3">
           <Plane className="w-5 h-5 text-emerald-600 flex-shrink-0" />
@@ -536,7 +532,7 @@ const PackageDetailPage: React.FC = () => {
               {pkg.packageName}
             </h1>
             <p className="text-lg md:text-xl text-emerald-100 mt-4">
-              {pkg.option} · Travel Window: {pkg.travelWindow}
+              {pkg.option}
             </p>
           </div>
 
@@ -545,7 +541,7 @@ const PackageDetailPage: React.FC = () => {
               {
                 icon: <CalendarDays className="w-5 h-5" />,
                 label: "Validity",
-                value: pkg.policy.validity ?? pkg.travelWindow,
+                value: pkg.policy.validity ?? "Available year-round",
               },
               {
                 icon: <Users className="w-5 h-5" />,

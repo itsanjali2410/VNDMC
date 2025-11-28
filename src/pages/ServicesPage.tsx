@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   MapPin, 
   Users, 
@@ -10,11 +11,12 @@ import {
   Calendar,
   Shield,
   Clock,
-  CheckCircle,
-  Star
-} from 'lucide-react';
+  CheckCircle} from 'lucide-react';
+import { usePackages } from '../hooks/usePackages';
 
 const ServicesPage = () => {
+  const { packages, loading } = usePackages();
+  const displayedPackages = packages.slice(0, 3);
   const services = [
     {
       icon: MapPin,
@@ -74,29 +76,12 @@ const ServicesPage = () => {
     }
   ];
 
-  const packages = [
-    {
-      name: "Essential Vietnam",
-      duration: "7 Days",
-      price: "From $899",
-      image: "https://images.pexels.com/photos/1518177/pexels-photo-1518177.jpeg",
-      highlights: ["Ho Chi Minh City", "Mekong Delta", "Hoi An", "Hanoi", "Ha Long Bay"]
-    },
-    {
-      name: "Vietnam Discovery",
-      duration: "14 Days",
-      price: "From $1,599",
-      image: "https://images.pexels.com/photos/2161467/pexels-photo-2161467.jpeg",
-      highlights: ["Complete North to South", "Cultural immersion", "Adventure activities", "Luxury accommodations"]
-    },
-    {
-      name: "Luxury Vietnam",
-      duration: "10 Days",
-      price: "From $2,499",
-      image: "https://images.pexels.com/photos/962464/pexels-photo-962464.jpeg",
-      highlights: ["5-star hotels", "Private transfers", "Exclusive experiences", "Personal guide"]
-    }
-  ];
+const packageThumbnails: Record<string, string> = {
+  "ha-noi-da-nang-phu-quoc-9d8n": "/hanoi-9D8N/halongbay.jpg",
+  "da-nang-short-break-4d3n": "/hanoi-9D8N/danang.jpg",
+  "phu-quoc-private-4d3n": "/hanoi-9D8N/thom-island.jpg",
+  "ho-chi-minh-private-3d2n": "/hanoi-9D8N/temple.jpg",
+};
 
   return (
     <div className="pt-24">
@@ -135,15 +120,15 @@ const ServicesPage = () => {
                 key={index}
                 className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
               >
-                <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4`}>
-                  <service.icon className="w-6 h-6" />
+                <div className="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-4">
+                  <service.icon className="w-6 h-6 text-emerald-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-4 leading-relaxed">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-emerald-600 mr-2" />
                       {feature}
                     </li>
                   ))}
@@ -164,35 +149,102 @@ const ServicesPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {packages.map((pkg, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img
-                  src={pkg.image}
-                  alt={pkg.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-gray-900">{pkg.name}</h3>
-                    <span className="text-emerald-600 font-semibold">{pkg.price}</span>
-                  </div>
-                  <p className="text-gray-600 mb-4">{pkg.duration}</p>
-                  <ul className="space-y-2 mb-6">
-                    {pkg.highlights.map((highlight, highlightIndex) => (
-                      <li key={highlightIndex} className="flex items-center text-sm text-gray-600">
-                        <Star className="w-4 h-4 text-amber-500 mr-2" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg transition-colors duration-300 font-semibold">
-                    View Details
-                  </button>
-                </div>
+          {loading ? (
+            <div className="text-center py-12 text-gray-500">Loading packages…</div>
+          ) : displayedPackages.length > 0 ? (
+            <>
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                {displayedPackages.map((pkg) => {
+                  const duration =
+                    pkg.summaryItinerary?.length ?? pkg.detailedItinerary.length;
+                  const groupLabel =
+                    pkg.paxGroups.length > 0 ? pkg.paxGroups.join(" • ") : "Custom group sizes";
+                  const routing =
+                    pkg.summaryItinerary
+                      ?.map((item) => item.split(":")[1]?.split("–")[0]?.trim() ?? "")
+                      .filter(Boolean)
+                      .slice(0, 1)
+                      .join(" • ") || "Vietnam";
+                  const imageSrc = packageThumbnails[pkg.id] ?? "/hanoi-9D8N/halongbay.jpg";
+
+                  return (
+                    <div
+                      key={pkg.id}
+                      className="bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
+                    >
+                      <div className="relative h-48">
+                        <img
+                          src={imageSrc}
+                          alt={pkg.packageName}
+                          className="w-full h-full object-cover"
+                        />
+                        {pkg.note && (
+                          <span className="absolute top-4 right-4 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                            {pkg.note}
+                          </span>
+                        )}
+                      </div>
+                      <div className="p-5 space-y-4 flex-1">
+                        <div className="space-y-1">
+                          <p className="text-xs uppercase tracking-[0.4em] text-emerald-500">
+                            {pkg.option}
+                          </p>
+                          <h3 className="text-xl font-semibold text-gray-900">{pkg.packageName}</h3>
+                        </div>
+                        <div className="flex flex-wrap gap-2 text-xs">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-emerald-700 font-medium">
+                            <Calendar className="w-3 h-3" />
+                            {duration} days
+                          </span>
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-emerald-700 font-medium">
+                            <Users className="w-3 h-3" />
+                            {groupLabel}
+                          </span>
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-emerald-700 font-medium">
+                            <Plane className="w-3 h-3" />
+                            {routing}
+                          </span>
+                        </div>
+                        {pkg.summaryItinerary && pkg.summaryItinerary.length > 0 && (
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.4em] text-emerald-500 mb-2">
+                              Highlights
+                            </p>
+                            <ul className="space-y-1 text-gray-700 text-sm">
+                              {pkg.summaryItinerary.slice(0, 3).map((item, idx) => (
+                                <li key={idx} className="flex gap-2">
+                                  <span className="text-emerald-500 font-semibold">•</span>
+                                  <p className="line-clamp-1">{item.split(":")[1]?.trim() || item}</p>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                      <div className="px-5 py-4 border-t border-gray-100 bg-gray-50 rounded-b-3xl">
+                        <Link
+                          to={`/packages/${pkg.id}`}
+                          className="w-full text-center block px-4 py-3 rounded-full bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors text-sm"
+                        >
+                          View Itinerary →
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+              <div className="text-center">
+                <Link
+                  to="/packages"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-emerald-600 text-emerald-600 font-semibold hover:bg-emerald-50 transition-colors"
+                >
+                  See All Packages
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12 text-gray-500">No packages available</div>
+          )}
         </div>
       </section>
 
@@ -205,29 +257,29 @@ const ServicesPage = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center bg-white p-6 rounded-xl shadow-lg">
-              <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">24/7 Support</h3>
               <p className="text-gray-600">Round-the-clock assistance throughout your journey</p>
             </div>
             <div className="text-center bg-white p-6 rounded-xl shadow-lg">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-blue-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Quick Response</h3>
               <p className="text-gray-600">Fast response times and immediate confirmations</p>
             </div>
             <div className="text-center bg-white p-6 rounded-xl shadow-lg">
-              <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-amber-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Local Expertise</h3>
               <p className="text-gray-600">Deep local knowledge and cultural insights</p>
             </div>
             <div className="text-center bg-white p-6 rounded-xl shadow-lg">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-purple-600" />
+              <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Quality Assured</h3>
               <p className="text-gray-600">Vetted partners and quality-controlled experiences</p>
