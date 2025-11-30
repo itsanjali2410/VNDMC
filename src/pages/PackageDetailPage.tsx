@@ -17,6 +17,12 @@ import {
   BadgeCheck,
   Download,
   Phone,
+  Bed,
+  Clock,
+  MapPin,
+  Building2,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import { usePackages } from "../hooks/usePackages";
 import type { TravelPackage } from "../types/packages";
@@ -98,7 +104,7 @@ const NineDaySignaturePage: React.FC<{ pkg: TravelPackage }> = ({ pkg }) => {
   };
 
   return (
-    <div className="pt-28 pb-16 bg-gray-50 text-gray-900 font-['Inter',_sans-serif]">
+    <div className="pt-28 pb-16 bg-gray-50 text-gray-900">
       <section className="px-4 mt-2">
         <div className="max-w-6xl mx-auto grid gap-6 lg:grid-cols-[minmax(0,2fr)_360px]">
           <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col gap-0">
@@ -427,20 +433,29 @@ const PackageDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const { packages, loading, error } = usePackages();
 
+  // Decode packageId from URL and match with package.id
+  const decodedPackageId = packageId ? decodeURIComponent(packageId) : null;
   const pkg = useMemo(
-    () => packages.find(item => item.id === packageId) ?? null,
-    [packages, packageId]
+    () => packages.find(item => item.id === decodedPackageId || item.id === packageId) ?? null,
+    [packages, packageId, decodedPackageId]
   );
 
   const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({});
+  const [expandedTerms, setExpandedTerms] = useState<Record<string, boolean>>({});
+  const [selectedHotelTier, setSelectedHotelTier] = useState<string>("");
 
   useEffect(() => {
     if (!pkg) return;
     const initial: Record<string, boolean> = {};
     pkg.detailedItinerary.forEach((day, index) => {
-      initial[day.day] = index === 0;
+      initial[day.day] = false;
     });
     setExpandedDays(initial);
+    
+    // Set default hotel tier to first available
+    if (pkg.hotelPackages && pkg.hotelPackages.length > 0) {
+      setSelectedHotelTier(pkg.hotelPackages[0].tier);
+    }
   }, [pkg]);
 
   if (loading) {
@@ -483,473 +498,473 @@ const PackageDetailPage: React.FC = () => {
     );
   }
 
-  const groupSizeLabel =
-    pkg.paxGroups.length > 0 ? pkg.paxGroups.join(" • ") : "Custom group sizes on request";
-
-  const routingLabel =
-    pkg.summaryItinerary && pkg.summaryItinerary.length > 0
-      ? pkg.summaryItinerary
-          .map(item => item.split(":")[1]?.split("–")[0]?.trim() ?? "")
-          .filter(Boolean)
-          .slice(0, 3)
-          .join(" • ") || "Vietnam"
-      : "Vietnam";
-
-  const hasPricing = pkg.pricing.length > 0 && pkg.paxGroups.length > 0;
+  const leadPrice = getLeadPrice(pkg) ?? "On request";
+  const nights = pkg.detailedItinerary.length - 1;
+  const days = nights + 1;
 
   const toggleDay = (dayKey: string) => {
     setExpandedDays(prev => ({ ...prev, [dayKey]: !prev[dayKey] }));
   };
 
-  const allExpanded = pkg.detailedItinerary.every(day => expandedDays[day.day]);
-
-  const handleExpandAll = () => {
-    const next: Record<string, boolean> = {};
-    pkg.detailedItinerary.forEach(day => {
-      next[day.day] = !allExpanded;
-    });
-    setExpandedDays(next);
+  const toggleTerms = (termKey: string) => {
+    setExpandedTerms(prev => ({ ...prev, [termKey]: !prev[termKey] }));
   };
 
-  const leadPrice = getLeadPrice(pkg);
+  // Get hero image - try to use package-specific image or default
+  const heroImage = pkg.summaryItinerary?.[0]?.includes("Ha Noi") 
+    ? "/hanoi-9D8N/halongbay.jpg" 
+    : pkg.summaryItinerary?.[0]?.includes("Da Nang")
+    ? "/hanoi-9D8N/danang.jpg"
+    : "/hanoi-9D8N/halongbay.jpg";
+
+  // Extract location names for display
+  const locationText = pkg.summaryItinerary && pkg.summaryItinerary.length > 0
+    ? pkg.summaryItinerary
+        .map(item => item.split(":")[1]?.split("–")[0]?.trim() ?? "")
+        .filter(Boolean)
+        .slice(0, 2)
+        .join(" • ")
+    : "Vietnam";
 
   if (pkg.id === SPECIAL_PACKAGE_ID) {
     return <NineDaySignaturePage pkg={pkg} />;
   }
 
   return (
-    <div className="pt-24 bg-gray-50 min-h-screen">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-700 to-teal-600 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-16 md:py-20 flex flex-col gap-8">
-          <div>
-            {pkg.agent && (
-              <p className="uppercase tracking-[0.5em] text-emerald-200 text-xs mb-4">
-                Agent: {pkg.agent}
-              </p>
-            )}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
-              {pkg.packageName}
-            </h1>
-            <p className="text-lg md:text-xl text-emerald-100 mt-4">
-              {pkg.option}
-            </p>
-          </div>
+    <div className="pt-28 bg-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Top Title */}
+        <div className="mb-2 pt-2">
+          <h1 className="text-2xl font-bold text-emerald-600 uppercase tracking-wide break-words">
+            {pkg.packageName.toUpperCase()}
+          </h1>
+        </div>
 
-          <div className="grid sm:grid-cols-3 gap-4">
-            {[
-              {
-                icon: <CalendarDays className="w-5 h-5" />,
-                label: "Validity",
-                value: pkg.policy.validity ?? "Available year-round",
-              },
-              {
-                icon: <Users className="w-5 h-5" />,
-                label: "Group Sizes",
-                value: groupSizeLabel,
-              },
-              {
-                icon: <Plane className="w-5 h-5" />,
-                label: "Routing",
-                value: routingLabel,
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white/10 backdrop-blur rounded-2xl px-4 py-3 flex items-center gap-3"
-              >
-                <div className="text-white">{item.icon}</div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-emerald-200">{item.label}</p>
-                  <p className="text-sm font-semibold">{item.value}</p>
-                </div>
+        {/* Hero Section with Image and Booking Panel */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-3 mb-3">
+          {/* Hero Image */}
+          <div className="relative">
+            <img
+              src={heroImage}
+              alt={pkg.packageName}
+              className="w-full h-[400px] object-cover"
+            />
+            {/* Overlay Text */}
+            <div className="absolute top-8 left-8">
+              <div className="text-5xl md:text-6xl font-bold text-emerald-500 uppercase tracking-wider break-words max-w-[70%]">
+                {locationText.split(" • ")[0] || "VIETNAM"}
               </div>
-            ))}
+            </div>
+            {/* Price Banner */}
+            <div className="absolute bottom-4 left-4 bg-emerald-500 text-white px-4 py-2 font-semibold">
+              STARTING FROM - {leadPrice}
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              to="/packages"
-              className="inline-flex items-center justify-center rounded-full border-2 border-white px-6 py-3 font-semibold hover:bg-white hover:text-emerald-700 transition-colors"
-            >
-              Browse Packages
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-white text-emerald-700 px-6 py-3 font-semibold shadow-lg hover:bg-emerald-50 transition-colors"
-            >
-              Request This Package
-            </Link>
-            <a
-              href={`mailto:sales@vndmc.com?subject=${encodeURIComponent(pkg.packageName)}%20Inquiry`}
-              className="inline-flex items-center justify-center rounded-full border-2 border-white px-6 py-3 font-semibold hover:bg-white hover:text-emerald-700 transition-colors"
-            >
-              Email Trip Expert
-            </a>
+          {/* Booking Panel */}
+          <div className="space-y-3">
+            {/* Price Card */}
+            <div className="bg-black text-white p-4">
+              <div className="mb-3">
+                <p className="text-sm uppercase mb-1">STARTING FROM</p>
+                <p className="text-3xl font-bold">{leadPrice}</p>
+              </div>
+              <p className="text-sm mb-4">{nights} NIGHTS/{days} DAY</p>
+              <Link
+                to="/contact"
+                className="block w-full bg-emerald-500 text-white text-center py-2 font-bold uppercase tracking-wide hover:bg-emerald-600 transition-colors"
+              >
+                SUBMIT YOUR QUERY
+              </Link>
+            </div>
+
+            {/* Assistance Panel */}
+            <div className="bg-white border border-gray-200 p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <HelpCircle className="w-6 h-6 text-emerald-600" />
+                <h3 className="font-semibold text-gray-900">NEED ASSISTANCE?</h3>
+              </div>
+              <div className="space-y-1 text-sm text-gray-700">
+                <p>+84 0325765379</p>
+                <p>+84 0325765379</p>
+                <p>sales@vndmc.com</p>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section className="py-12 lg:py-16">
-        <div className="max-w-6xl mx-auto px-4 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div className="space-y-12">
-            {hasPricing ? (
-              <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 space-y-6">
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.4em] text-emerald-500">
-                      Transparent Pricing
-                    </p>
-                    <h2 className="text-3xl font-bold text-gray-900 mt-2">
-                      {pkg.option} · {pkg.note}
-                    </h2>
-                  </div>
-                  <p className="text-gray-600 text-sm md:text-base">
-                    Rates are per person on twin sharing. Flights are excluded.
-                  </p>
+        {/* Package Overview */}
+        <div className="mb-4">
+          <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">PACKAGE OVERVIEW</h2>
+          <p className="text-gray-700 mb-2">{pkg.option}</p>
+          <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-1">
+              <Bed className="w-4 h-4" />
+              <Clock className="w-4 h-4" />
+              <span>{nights} NIGHTS, {days} DAYS</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <MapPin className="w-4 h-4" />
+              <Bed className="w-4 h-4" />
+              <span>{locationText.toUpperCase()}</span>
+            </div>
+            <Link to="#itinerary" className="text-emerald-600 font-semibold hover:underline uppercase">
+              VIEW ITINERARY
+            </Link>
+          </div>
+        </div>
+
+        {/* Day-wise Itinerary */}
+        <div className="mb-4" id="itinerary">
+          <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">DAY-WISE ITINERARY</h2>
+          <div className="space-y-0">
+            {pkg.detailedItinerary.map((day, idx) => {
+              const isOpen = expandedDays[day.day];
+              return (
+                <div key={day.day} className="bg-white border-b border-gray-200">
+                  <button
+                    type="button"
+                    onClick={() => toggleDay(day.day)}
+                    className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 transition-colors"
+                  >
+                    <div>
+                      <p className="font-semibold text-gray-900">{day.day.toUpperCase()}: {day.title}</p>
+                    </div>
+                    <ChevronDown
+                      className={`w-5 h-5 text-gray-600 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-3 text-sm text-gray-700 space-y-1">
+                      {day.details.map((detail, detailIdx) => (
+                        <p key={detailIdx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{detail}</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
+              );
+            })}
+          </div>
+        </div>
 
-                <div className="overflow-x-auto rounded-2xl shadow border border-gray-100">
+        {/* Tour Includes & Why Travel with Us */}
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">TOUR INCLUDES</h2>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-1">
+                  <Plane className="w-8 h-8 text-emerald-600" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900">FLIGHTS</p>
+              </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+                  <Building2 className="w-8 h-8 text-emerald-600" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900">SIGHTSEEING/TRANSPORT</p>
+              </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+                  <Bed className="w-8 h-8 text-emerald-600" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900">HOTEL</p>
+              </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+                  <Utensils className="w-8 h-8 text-emerald-600" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900">BREAKFAST</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">WHY TRAVEL WITH US</h2>
+            <ul className="space-y-1 text-sm text-gray-700">
+              {(pkg.policy.notes ?? [
+                "Breakfast included in tour price",
+                "English Speaking certified drivers",
+                "Daily curated itineraries for a stress-free experience",
+                "Seamless airport transfers for hassle-free travel"
+              ]).slice(0, 4).map((item, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <span className="text-emerald-600">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Inclusions & Exclusions */}
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div className="bg-emerald-50 border border-emerald-200 p-4">
+            <h2 className="text-xl font-bold text-emerald-900 uppercase mb-2">INCLUSIONS</h2>
+            <ul className="space-y-1 text-sm text-emerald-900">
+              {pkg.includes.slice(0, 6).map((item, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-amber-50 border border-amber-200 p-4">
+            <h2 className="text-xl font-bold text-amber-900 uppercase mb-2">EXCLUSIONS</h2>
+            <ul className="space-y-1 text-sm text-amber-900">
+              {pkg.excludes.map((item, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Pricing Table */}
+        {pkg.pricing.length > 0 && pkg.paxGroups.length > 0 && (
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">PRICING</h2>
+            <div className="bg-white border border-gray-200 overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-emerald-600 text-white">
+                    <th className="p-3 font-semibold">PACKAGE</th>
+                    {pkg.paxGroups.map(group => (
+                      <th key={group} className="p-3 font-semibold">
+                        {group.toUpperCase()}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {pkg.pricing.map((row, idx) => (
+                    <tr key={row.tier} className={idx % 2 === 0 ? "bg-white" : "bg-emerald-50/30"}>
+                      <td className="p-3 font-semibold text-gray-900">{row.tier.toUpperCase()}</td>
+                      {row.prices.map((price, priceIdx) => (
+                        <td key={priceIdx} className="p-3 text-gray-700">
+                          {price}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                  {pkg.airportTransfer.length > 0 && (
+                    <tr className="bg-emerald-50">
+                      <td className="p-3 font-semibold text-gray-900">AIRPORT TRANSFER</td>
+                      {pkg.airportTransfer.map((value, idx) => (
+                        <td key={idx} className="p-3 text-gray-700">
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Hotel Packages */}
+        {pkg.hotelPackages.length > 0 && (
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">HOTEL PACKAGES</h2>
+            
+            {/* Hotel Tier Toggle Buttons */}
+            <div className="flex flex-wrap gap-2 mb-3">
+              {pkg.hotelPackages.map(tier => {
+                const isSelected = selectedHotelTier === tier.tier;
+                return (
+                  <button
+                    key={tier.tier}
+                    type="button"
+                    onClick={() => setSelectedHotelTier(tier.tier)}
+                    className={`px-4 py-2 font-semibold uppercase transition-colors ${
+                      isSelected
+                        ? "bg-emerald-600 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    }`}
+                  >
+                    {tier.tier.replace("Package", "").trim()}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Display Selected Hotel Tier */}
+            {selectedHotelTier && (
+              <div className="bg-white border border-gray-200 overflow-hidden">
+                <div className="bg-emerald-600 text-white px-4 py-2 text-lg font-semibold">
+                  {selectedHotelTier.toUpperCase()}
+                </div>
+                <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
-                    <thead>
-                      <tr className="bg-emerald-600 text-white">
-                        <th className="p-4">Package</th>
-                        {pkg.paxGroups.map(group => (
-                          <th key={group} className="p-4 font-semibold">
-                            {group}
-                          </th>
-                        ))}
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="p-3 font-semibold">CITY</th>
+                        <th className="p-3 font-semibold">ACCOMMODATION</th>
+                        <th className="p-3 font-semibold">ROOM TYPE</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {pkg.pricing.map((row, idx) => (
-                        <tr key={row.tier} className={idx % 2 === 0 ? "bg-white" : "bg-emerald-50/30"}>
-                          <td className="p-4 font-semibold text-gray-900">{row.tier}</td>
-                          {row.prices.map((price, priceIdx) => (
-                            <td key={priceIdx} className="p-4 text-gray-700">
-                              {price}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                      {pkg.airportTransfer.length > 0 && (
-                        <tr className="bg-emerald-50">
-                          <td className="p-4 font-semibold text-gray-900">Airport Transfer</td>
-                          {pkg.airportTransfer.map((value, idx) => (
-                            <td key={idx} className="p-4 text-gray-700">
-                              {value}
-                            </td>
-                          ))}
-                        </tr>
-                      )}
+                      {pkg.hotelPackages
+                        .find(tier => tier.tier === selectedHotelTier)
+                        ?.hotels.map((hotel, idx) => (
+                          <tr
+                            key={`${selectedHotelTier}-${hotel.city}`}
+                            className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                          >
+                            <td className="p-3 font-medium text-gray-900">{hotel.city.toUpperCase()}</td>
+                            <td className="p-3 text-gray-700">{hotel.property}</td>
+                            <td className="p-3 text-gray-700">{hotel.room}</td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
               </div>
-            ) : (
-              <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 text-center space-y-4">
-                <p className="text-sm uppercase tracking-[0.4em] text-emerald-500">Pricing</p>
-                <h2 className="text-3xl font-bold text-gray-900">Custom quotation available</h2>
-                <p className="text-gray-600">
-                  {pkg.note ??
-                    "Share your preferred travel dates and group size for a bespoke quotation within 24 working hours."}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    to="/contact"
-                    className="bg-emerald-600 text-white px-8 py-3 rounded-full font-semibold shadow hover:bg-emerald-700 transition-colors"
-                  >
-                    Request a Quote
-                  </Link>
-                  <a
-                    href="https://wa.me/84935555135"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-emerald-600 text-emerald-600 px-8 py-3 rounded-full font-semibold hover:bg-emerald-50 transition-colors"
-                  >
-                    Chat on WhatsApp
-                  </a>
-                </div>
+            )}
+          </div>
+        )}
+
+        {/* Terms & Conditions - Consolidated */}
+        <div className="mb-4">
+          <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">TERMS & CONDITIONS</h2>
+          <div className="bg-white border border-gray-200">
+            <button
+              type="button"
+              onClick={() => toggleTerms("all")}
+              className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 transition-colors"
+            >
+              <span className="font-semibold text-gray-900 uppercase">VIEW TERMS & CONDITIONS</span>
+              <ChevronDown
+                className={`w-5 h-5 text-gray-600 transition-transform ${expandedTerms.all ? "rotate-180" : ""}`}
+              />
+            </button>
+            {expandedTerms.all && (
+              <div className="px-4 pb-4 space-y-4 text-sm text-gray-700">
+                {/* General Notes */}
+                {pkg.policy.notes && pkg.policy.notes.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <Map className="w-4 h-4 text-emerald-600" />
+                      GENERAL NOTES
+                    </h3>
+                    <ul className="space-y-1">
+                      {pkg.policy.notes.map((item, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Children Policy */}
+                {pkg.policy.childrenPolicy && pkg.policy.childrenPolicy.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <Users className="w-4 h-4 text-emerald-600" />
+                      CHILDREN POLICY
+                    </h3>
+                    <ul className="space-y-1">
+                      {pkg.policy.childrenPolicy.map((item, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Validity & Deposit */}
+                {(pkg.policy.validity || (pkg.policy.deposit && pkg.policy.deposit.length > 0)) && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <CalendarDays className="w-4 h-4 text-emerald-600" />
+                      VALIDITY & DEPOSIT
+                    </h3>
+                    {pkg.policy.validity && (
+                      <p className="mb-2">{pkg.policy.validity}</p>
+                    )}
+                    {pkg.policy.deposit && pkg.policy.deposit.length > 0 && (
+                      <ul className="space-y-1">
+                        {pkg.policy.deposit.map((item, idx) => (
+                          <li key={idx} className="flex gap-2">
+                            <span className="text-emerald-600">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+                {/* Cancellation */}
+                {pkg.policy.cancellation && pkg.policy.cancellation.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-emerald-600" />
+                      CANCELLATION POLICY
+                    </h3>
+                    <ul className="space-y-1">
+                      {pkg.policy.cancellation.map((item, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Terms */}
+                {pkg.policy.terms && pkg.policy.terms.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-emerald-600" />
+                      TERMS
+                    </h3>
+                    <ul className="space-y-1">
+                      {pkg.policy.terms.map((item, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Payment Methods */}
+                {pkg.policy.paymentMethods && pkg.policy.paymentMethods.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-gray-900 uppercase mb-2 flex items-center gap-2">
+                      <DollarSign className="w-4 h-4 text-emerald-600" />
+                      PAYMENT METHODS
+                    </h3>
+                    <ul className="space-y-1">
+                      {pkg.policy.paymentMethods.map((item, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="text-emerald-600">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
-
-            <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 space-y-8">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 mb-2">Itinerary</p>
-                  <h2 className="text-3xl font-bold text-gray-900">Day-wise breakdown</h2>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleExpandAll}
-                  className="text-sm font-semibold text-emerald-600 hover:text-emerald-500"
-                >
-                  {allExpanded ? "Collapse all days" : "Expand all days"}
-                </button>
-              </div>
-
-              <div className="space-y-6">
-                {pkg.detailedItinerary.map((day, idx) => {
-                  const expanded = expandedDays[day.day];
-                  const isLast = idx === pkg.detailedItinerary.length - 1;
-                  return (
-                    <div key={day.day} className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <span
-                          className={`w-4 h-4 rounded-full border-2 ${
-                            expanded ? "border-emerald-600 bg-emerald-600" : "border-gray-400 bg-white"
-                          }`}
-                        />
-                        {!isLast && <span className="w-px flex-1 bg-gray-300" />}
-                      </div>
-                      <div className="flex-1 pb-6 border-b border-gray-100">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-[0.3em] text-emerald-500">
-                              {day.day}
-                              {day.dateLabel && (
-                                <span className="text-gray-500 font-normal ml-2">{day.dateLabel}</span>
-                              )}
-                            </p>
-                            <h3 className="text-lg font-semibold text-gray-900 mt-1">{day.title}</h3>
-                          </div>
-                          <button
-                            type="button"
-                            aria-label={`Toggle ${day.day}`}
-                            onClick={() => toggleDay(day.day)}
-                            className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-emerald-500 hover:text-emerald-500 transition-colors"
-                          >
-                            {expanded ? <Minus size={16} /> : <Plus size={16} />}
-                          </button>
-                        </div>
-                        <div
-                          className={`transition-all duration-300 ${
-                            expanded ? "max-h-[1000px] opacity-100 mt-3" : "max-h-0 opacity-0"
-                          } overflow-hidden`}
-                        >
-                          <ul className="text-gray-700 text-sm space-y-2 list-disc pl-5">
-                            {day.details.map((detail, detailIdx) => (
-                              <li key={detailIdx}>{detail}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-gray-100 bg-gray-50 p-8 space-y-6">
-              <div>
-                <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 mb-2">
-                  What&apos;s included
-                </p>
-                <h2 className="text-3xl font-bold text-gray-900">Inclusions & Exclusions</h2>
-              </div>
-              <div className="grid gap-6 lg:grid-cols-2">
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-2xl font-semibold text-gray-900">Include</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.includes.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <XCircle className="w-6 h-6 text-red-500" />
-                    <h3 className="text-2xl font-semibold text-gray-900">Exclude</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.excludes.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-red-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 space-y-8">
-              <div>
-                <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 mb-3">Stay Options</p>
-                <h2 className="text-3xl font-bold text-gray-900">Handpicked Hotels & Cabins</h2>
-              </div>
-              <div className="grid gap-6">
-                {pkg.hotelPackages.map(tier => (
-                  <div key={tier.tier} className="rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                    <div className="bg-emerald-600 text-white px-6 py-3 text-lg font-semibold">
-                      {tier.tier}
-                    </div>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-left text-sm">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="p-4">City</th>
-                            <th className="p-4">Accommodation</th>
-                            <th className="p-4">Room Type</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {tier.hotels.map((hotel, idx) => (
-                            <tr
-                              key={`${tier.tier}-${hotel.city}`}
-                              className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                            >
-                              <td className="p-4 font-medium text-gray-900">{hotel.city}</td>
-                              <td className="p-4 text-gray-700">{hotel.property}</td>
-                              <td className="p-4 text-gray-700">{hotel.room}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-gray-100 bg-gray-50 p-8 space-y-8">
-              <div>
-                <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 mb-3">
-                  Important Notes
-                </p>
-                <h2 className="text-3xl font-bold text-gray-900">Policy & Payments</h2>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Map className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">General Notes</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.notes?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Users className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">Children Policy</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.childrenPolicy?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <CalendarDays className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">Validity & Deposit</h3>
-                  </div>
-                  {pkg.policy.validity && <p className="text-gray-700 mb-4">{pkg.policy.validity}</p>}
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.deposit?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Shield className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">Cancellation</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.cancellation?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <FileText className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">Terms & Conditions</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.terms?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center gap-3 mb-4">
-                    <DollarSign className="w-6 h-6 text-emerald-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">Payment Methods</h3>
-                  </div>
-                  <ul className="space-y-3 text-gray-700">
-                    {pkg.policy.paymentMethods?.map((item, idx) => (
-                      <li key={idx} className="flex gap-3">
-                        <span className="text-emerald-500 mt-1">•</span>
-                        <p>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-3xl bg-gradient-to-r from-teal-700 to-emerald-600 p-10 text-center text-white space-y-6">
-              <div>
-                <p className="text-sm uppercase tracking-[0.5em] text-emerald-200">Next Step</p>
-                <h2 className="text-4xl font-bold">Ready to explore Vietnam?</h2>
-              </div>
-              <p className="text-lg text-emerald-100">
-                Share your preferred travel dates and we&apos;ll confirm availability within 24 working hours.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="bg-white text-emerald-700 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-emerald-50 transition-colors"
-                >
-                  Talk to a Planner
-                </Link>
-                <a
-                  href="https://wa.me/84935555135"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-emerald-700 transition-colors"
-                >
-                  Chat on WhatsApp
-                </a>
-              </div>
-            </div>
           </div>
-
-          <PackagePriceCard pkg={pkg} leadPrice={leadPrice} />
         </div>
-      </section>
+      </div>
     </div>
   );
 };

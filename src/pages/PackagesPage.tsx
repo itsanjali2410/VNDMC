@@ -9,113 +9,13 @@ const packageThumbnails: Record<string, string> = {
   "da-nang-private-4d3n": "/hanoi-9D8N/goldenbridge.png",
   "ho-chi-minh-private-3d2n": "/hanoi-9D8N/temple.jpg",
   "phu-quoc-private-4d3n": "/hanoi-9D8N/thom-island.jpg",
+  "phu-quoc-4-night-standard-package": "/hanoi-9D8N/thom-island.jpg",
+  "vietnam-standard-package-6n7d-with-daycruise": "/hanoi-9D8N/halongbay.jpg",
+  "vietnam-7n8d-standard-package": "/hanoi-9D8N/halongbay.jpg",
 };
 
 const PackagesPage: React.FC = () => {
   const { packages, loading, error } = usePackages();
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-  const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
-  const [durationRange, setDurationRange] = useState<[number, number]>([1, 15]);
-  const [priceRange, setPriceRange] = useState<{ min: string; max: string }>({ min: "", max: "" });
-
-  const toggleRegion = (region: string) => {
-    setSelectedRegions(prev =>
-      prev.includes(region) ? prev.filter(r => r !== region) : [...prev, region]
-    );
-  };
-
-  const toggleTheme = (theme: string) => {
-    setSelectedThemes(prev =>
-      prev.includes(theme) ? prev.filter(t => t !== theme) : [...prev, theme]
-    );
-  };
-
-  const FilterContent = () => (
-    <>
-      <h2 className="text-lg font-semibold text-gray-900 mb-6">Filters</h2>
-      
-      {/* Region */}
-      <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">Region</h3>
-        <div className="space-y-2">
-          {["Northern", "Central", "Southern"].map(region => (
-            <label key={region} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedRegions.includes(region)}
-                onChange={() => toggleRegion(region)}
-                className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
-              />
-              <span className="text-sm text-gray-700">{region}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Theme */}
-      <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">Theme</h3>
-        <div className="space-y-2">
-          {["Cultural", "Beach", "Adventure"].map(theme => (
-            <label key={theme} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedThemes.includes(theme)}
-                onChange={() => toggleTheme(theme)}
-                className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
-              />
-              <span className="text-sm text-gray-700">{theme}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Duration */}
-      <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">Duration</h3>
-        <div className="px-2">
-          <input
-            type="range"
-            min="1"
-            max="15"
-            value={durationRange[1]}
-            onChange={(e) => setDurationRange([durationRange[0], parseInt(e.target.value)])}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>{durationRange[0]} days</span>
-            <span>{durationRange[1]} days</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Price Range */}
-      <div>
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">Price Range</h3>
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <input
-              type="number"
-              placeholder="Min"
-              value={priceRange.min}
-              onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-          </div>
-          <span className="text-gray-400">-</span>
-          <div className="flex-1">
-            <input
-              type="number"
-              placeholder="Max"
-              value={priceRange.max}
-              onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  );
 
   return (
     <div className="pt-16 sm:pt-20 md:pt-24 bg-gray-50 min-h-screen">
@@ -132,50 +32,19 @@ const PackagesPage: React.FC = () => {
 
       <section className="py-8 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[280px_1fr] gap-6 lg:gap-8">
-            {/* Filters Sidebar - Desktop Only */}
-            <aside className="hidden lg:block bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-fit sticky top-28">
-              <FilterContent />
-            </aside>
-
-            {/* Main Content */}
-            <div className="w-full min-w-0">
-              {loading && (
-                <div className="py-12 text-center text-gray-500">Loading packages…</div>
-              )}
-              {error && !loading && (
-                <div className="py-12 text-center text-red-500">{error}</div>
-              )}
-              {!loading && !error && packages.length === 0 && (
-                <div className="py-12 text-center text-gray-500">No packages available right now.</div>
-              )}
-              {!loading && !error && packages.length > 0 && (() => {
-                // Filter packages based on selected filters
-                let filteredPackages = packages;
-
-                // Filter by duration
-                filteredPackages = filteredPackages.filter(pkg => {
-                  const duration = pkg.summaryItinerary?.length ?? pkg.detailedItinerary.length;
-                  return duration >= durationRange[0] && duration <= durationRange[1];
-                });
-
-                // Filter by price range (if price data available)
-                if (priceRange.min || priceRange.max) {
-                  // This would need actual price data from packages
-                  // For now, we'll skip price filtering if price data isn't structured
-                }
-
-                // Note: Region and Theme filtering would require package metadata
-                // For now, we'll show all packages that match duration
-
-                return (
-                  <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-                    {filteredPackages.length === 0 ? (
-                      <div className="col-span-full text-center py-12 text-gray-500">
-                        No packages match your filters. Try adjusting your search criteria.
-                      </div>
-                    ) : (
-                      filteredPackages.map(pkg => {
+          <div className="w-full">
+            {loading && (
+              <div className="py-12 text-center text-gray-500">Loading packages…</div>
+            )}
+            {error && !loading && (
+              <div className="py-12 text-center text-red-500">{error}</div>
+            )}
+            {!loading && !error && packages.length === 0 && (
+              <div className="py-12 text-center text-gray-500">No packages available right now.</div>
+            )}
+            {!loading && !error && packages.length > 0 && (
+              <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                {packages.map(pkg => {
                     const duration =
                       pkg.summaryItinerary?.length ?? pkg.detailedItinerary.length;
                     const groupLabel =
@@ -238,7 +107,7 @@ const PackagesPage: React.FC = () => {
                         </div>
                         <div className="px-4 sm:px-5 md:px-6 py-3 sm:py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl sm:rounded-b-3xl">
                           <Link
-                            to={`/packages/${pkg.id}`}
+                            to={`/packages/${encodeURIComponent(pkg.id)}`}
                             className="w-full text-center block px-4 py-2.5 sm:py-3 rounded-full bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors text-xs sm:text-sm"
                           >
                             View Itinerary →
@@ -246,12 +115,9 @@ const PackagesPage: React.FC = () => {
                         </div>
                       </div>
                     );
-                      })
-                    )}
-                  </div>
-                );
-              })()}
-            </div>
+                })}
+              </div>
+            )}
           </div>
         </div>
       </section>

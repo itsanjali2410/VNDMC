@@ -1,0 +1,149 @@
+{
+  "id": "PhuQuoc4 _Night _Standard _Package",
+  "agent": "Tripstars Ops",
+  "packageName": "4D3N – Phu Quoc Standard Package",
+  "option": "Private & Group Mix Touring · Breakfast Plan",
+  "travelWindow": "Available year-round",
+  "note": "Custom quote on request",
+  "paxGroups": [],
+  "pricing": [],
+  "airportTransfer": ["Private 4-seat car throughout"],
+  "summaryItinerary": [
+    "Day 1: Phu Quoc Arrival – Day at Leisure without Guide (No meal)",
+    "Day 2: Phu Quoc – Private Afternoon Tour to Grand World without Guide (Breakfast)",
+    "Day 3: Phu Quoc – Private Day Tour to Vinpearl Safari – VinWonder without Guide (Breakfast)",
+    "Day 4: Phu Quoc – Join Group Tour of 4 Islands by Boat + Hon Thom Cable Car (Breakfast)",
+    "Day 5: Phu Quoc Departure (Breakfast)"
+  ],
+  "detailedItinerary": [
+    {
+      "day": "Day 1",
+      "title": "Phu Quoc Arrival – Day at Leisure without Guide (No meal)",
+      "details": [
+        "Arrive in Phu Quoc, our driver will take you to the hotel for baggage storage",
+        "Do hotel check-in at 15:00 PM",
+        "Explore Day on you own Free Leisure and Overnight in Phu Quoc"
+      ]
+    },
+    {
+      "day": "Day 2",
+      "title": "Phu Quoc – Private Afternoon Tour to Grand World without Guide (Breakfast)",
+      "details": [
+        "Have breakfast at hotel and free leisure in the morning",
+        "15:30: Our driver will pick you up at the hotel and embark on a private afternoon tour to Grand World, a vibrant entertainment complex known as the \"Sleepless City.\"",
+        "Explore the various attractions at Grand World, including cultural shows, shopping streets, and unique architectural structures. The complex offers a blend of traditional and modern experiences, providing a lively atmosphere for visitors.",
+        "20:00: Our driver will take you back to hotel for relax",
+        "Free leisure and overnight in Phu Quoc"
+      ]
+    },
+    {
+      "day": "Day 3",
+      "title": "Phu Quoc – Private Day Tour to Vinpearl Safari – VinWonder without Guide (Breakfast)",
+      "details": [
+        "Have breakfast at the hotel",
+        "8:30: Our driver will pick you up at the hotel and your private tour begins with a visit to Vinpearl Safari, Vietnam's first and only open zoo. Covering a vast area, the safari is home to a wide variety of wildlife from around the world, including endangered species. Enjoy a guided tour through the safari, where you can see animals in their natural habitats and learn about conservation efforts.",
+        "Head to VinWonders, a world-class amusement park. VinWonders offers a range of activities, including thrilling rides, water slides, and themed zones that cater to all ages. Spend the afternoon experiencing the excitement and fun of this extensive amusement park.",
+        "19:00: Our driver will take you back hotel for relax",
+        "Free leisure and overnight in Phu Quoc"
+      ]
+    },
+    {
+      "day": "Day 4",
+      "title": "Phu Quoc – Join Group Day Tour of 4 Islands by Boat + Hon Thom Cable Car (Breakfast)",
+      "details": [
+        "Have breakfast at the hotel",
+        "08:00 – 08:30: Pick up from your hotel in Duong Dong ward. Visit the Pearl Farm (approx. 30 minutes).",
+        "09:40 – 09:50: Arrive at An Thoi Harbor, board the speedboat.",
+        "Visit Coral Park – Sea Walker Experience (Optional activity - Pay by yourself): Walk under the sea and admire colorful marine life.",
+        "Stop at Mong Tay Island: Take photos with SUP boards and Flycam.",
+        "Continue to Gam Ghi/Buom Island: Go swimming and snorkeling at the coral reef.",
+        "Visit May Rut Island: Free time for swimming and relaxing.",
+        "Note: Itinerary is subject to change depending on weather conditions.",
+        "15:20: Arrive at Thom Island: Enjoy the thrilling Aquatopia Water Park, then return via the scenic cable car ride (~25 minutes).",
+        "17:30: Return to your hotel.",
+        "Overnight in Phu Quoc"
+      ]
+    },
+    {
+      "day": "Day 5",
+      "title": "Phu Quoc Departure (Breakfast)",
+      "details": [
+        "Have breakfast at hotel",
+        "Do hotel check-out before 12:00 PM",
+        "Our driver will take you directly to the Phu Quoc International Airport as your departure flight",
+        "TOUR ENDS. Thank you for booking with us!"
+      ]
+    }
+  ],
+  "includes": [
+    "Roundtrip airport transfer by private 4-seat car without guide",
+    "Meals mentioned in Itinerary: 4 Breakfast",
+    "04 nights accommodation at standard room",
+    "Entrance fee mentioned in Itinerary",
+    "One-way Hon Thom Cable Car",
+    "Grand World Entrance Ticket: Gondola Boating",
+    "Vinpearl Safari – VinWonder Entrance Ticket",
+    "Water during tours: 1 bottle of 500 ml/pax/day tour",
+    "Tours and Transfer are on Private Basic with good condition 4-seat car without Guide on Day 2 and Day 3",
+    "Tours and Transfer are on Sharing Basic with good condition coach and local guide speaking English on Day 4"
+  ],
+  "excludes": [
+    "International Flights",
+    "Vietnam Single Entry e-VISA",
+    "Sea Walking & Scuba Diving on Islands Tour",
+    "Electric Car in Vin Wonders + Safari + Grand World",
+    "Grand World Entrance Ticket: Teddy Bear Museum – The Quintessence Vietnam Show",
+    "Tips for Group Tour: Optional",
+    "Other meals and services than mentioned",
+    "Laundry, telephone calls and expenditure of a personal nature",
+    "Travel insurance (Compulsory)",
+    "Early check-in and late check-out at all hotels",
+    "Unforeseen expenses in the event of tour cancellation due to force majeure situations such as natural disasters, adverse weather conditions, or strikes...",
+    "Surcharge for peak season: Christmas Holidays (24th – 25th Dec, 2025), New Year Holidays (31st Dec 2025 – 1st Jan 2026), Vietnam Lunar New Year Holidays (14th Feb – 22nd Feb 2026), Hung Kings' Festival (26th April, 2026), Vietnam's Reunification Day and International Labor Day Holidays (30th April - 01st May, 2026), Independence Day (01st – 02nd Sep, 2026), Christmas Holidays (24th– 25th Dec, 2026), Da Nang's International Firework Festival 2026 (TBA)"
+  ],
+  "hotelPackages": [
+    {
+      "tier": "4-star Package",
+      "hotels": [
+        {
+          "city": "Phu Quoc",
+          "property": "Tom Hill Boutique Resort & Spa (4-star)",
+          "room": "1 Deluxe Mountain View Double Room"
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "notes": [
+      "Hotels are subject to availability. Check-in time: 15:00 PM and Check-out time: 12:00 PM",
+      "Flight fares are subject to change",
+      "Validity of the passport should be a minimum of 6 months from the intended date of return",
+      "Please print out the E Visa for smooth immigration process",
+      "We are not responsible for your lateness for the Joint in Tour",
+      "Meals inclusive during Joint in Tour will be served in local restaurant",
+      "Children from 10 years old are considered adults",
+      "Any transportation outside of the scheduled times may incur additional charges"
+    ],
+    "childrenPolicy": [],
+    "validity": "Rates are valid till 30th September 2025. Rooms and other services are not held or blocked till clients confirm.",
+    "deposit": [
+      "1st payment: 50% on total group booking upon confirmation",
+      "2nd payment: the remaining balance 50% will be paid 10 days before the arrival date."
+    ],
+    "cancellation": [
+      "Flights and VISA fee is non-refundable",
+      "Cancellation made within:",
+      "7 days prior to departure date: 100% of reservation cost (after deduction of flights and VISA fee)",
+      "8-14 days prior to departure date: 50% of reservation cost (after deduction of flights and VISA fee)",
+      "15-29 days prior to departure date: 25% of reservation cost (after deduction of flights and VISA fee)",
+      "30 or more days prior to departure date: 10% of reservation (after deduction of flights and VISA fee)"
+    ],
+    "terms": [
+      "Any overstay expenses due to delay or change or cancellation in flight will be on the guests own & we will not be held liable for such expenses however we will provide best possible assistance. Holiday Surcharge will be additional if applicable",
+      "The passengers must ensure on their own that they have a valid passport and other required documents for the necessary period as per the traveling destination immigration rules.",
+      "The passengers should also arrange for visas before traveling with this holiday package if applicable.",
+      "We do not accept any responsibility if the passenger cannot travel because of a passport or visa issue at any point. The cancellation policy will be applicable as per the booking terms and conditions"
+    ],
+    "paymentMethods": []
+  }
+}

@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
-        'inter': ['Inter', 'sans-serif'],
+        'primary': ['Montserrat', 'sans-serif'],
+        'heading': ['Poppins', 'sans-serif'],
+        'logo': ['Dancing Script', 'cursive'],
       },
     },
   },
