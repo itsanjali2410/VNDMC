@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CalendarDays, Plane, Users } from "lucide-react";
 import { usePackages } from "../hooks/usePackages";
@@ -72,7 +72,7 @@ const PackagesPage: React.FC = () => {
                         </div>
                         <div className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 flex-1">
                           <div className="space-y-1">
-                            <p className="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-emerald-500">{pkg.option}</p>
+                            <p className="text-[10px] sm:text-xs uppercase text-emerald-500">{pkg.option}</p>
                             <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 leading-tight">{pkg.packageName}</h2>
                           </div>
                           <div className="flex flex-wrap gap-1.5 sm:gap-2 text-[10px] sm:text-xs">

@@ -15,7 +15,6 @@ import {
   Utensils,
   BusFront,
   BadgeCheck,
-  Download,
   Phone,
   Bed,
   Clock,
@@ -344,90 +343,6 @@ const getLeadPrice = (pkg: TravelPackage): string | null => {
   return null;
 };
 
-const PackagePriceCard: React.FC<{ pkg: TravelPackage; leadPrice: string | null }> = ({
-  pkg,
-  leadPrice,
-}) => {
-  const paxLabel = pkg.paxGroups[0] ?? "Custom quote";
-  const airportHighlight = pkg.airportTransfer[0] ?? "Airport transfers arranged on request";
-  const summaryHighlight =
-    pkg.summaryItinerary && pkg.summaryItinerary.length > 0
-      ? pkg.summaryItinerary[0]
-      : pkg.option;
-  const validityCopy = pkg.policy.validity ?? `Travel window: ${pkg.travelWindow}`;
-
-  return (
-    <aside className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 lg:p-7 flex flex-col gap-6 text-gray-900 lg:sticky lg:top-28 self-start">
-      <div>
-        <p className="text-xs uppercase tracking-[0.5em] text-emerald-500">From {paxLabel}</p>
-        <p className="text-4xl font-semibold mt-2">{leadPrice ?? "On request"}</p>
-        {leadPrice && <p className="text-sm text-gray-500 mt-1">per person · twin sharing</p>}
-        <p className="text-sm text-gray-600 mt-3">{validityCopy}</p>
-      </div>
-
-      <div className="space-y-4 text-sm text-gray-700">
-        <div className="flex gap-3">
-          <BadgeCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-        </div>
-        <div className="flex gap-3">
-          <Plane className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-          <div>
-            <p className="font-semibold text-gray-900">Airport Transfer</p>
-            <p>{airportHighlight}</p>
-          </div>
-        </div>
-        <div className="flex gap-3">
-          <Map className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-          <div>
-            <p className="font-semibold text-gray-900">Trip Snapshot</p>
-            <p>{summaryHighlight}</p>
-          </div>
-        </div>
-        {pkg.policy.deposit && pkg.policy.deposit.length > 0 && (
-          <div className="flex gap-3">
-            <Shield className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-            <div>
-              <p className="font-semibold text-gray-900">Deposit Terms</p>
-              <p>{pkg.policy.deposit[0]}</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <Link
-          to="/contact"
-          className="bg-emerald-600 text-white text-center px-4 py-3 rounded-full font-semibold shadow-lg hover:bg-emerald-500 transition-colors"
-        >
-          Reserve This Trip
-        </Link>
-        <a
-          href={`mailto:sales@vndmc.com?subject=${encodeURIComponent(pkg.packageName)}%20Inquiry`}
-          className="text-center border border-emerald-600 text-emerald-700 px-4 py-3 rounded-full font-semibold hover:bg-emerald-50 transition-colors"
-        >
-          Email Trip Planner
-        </a>
-        <a
-          href="https://wa.me/84935555135"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-center border border-gray-200 text-gray-800 px-4 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors"
-        >
-          Chat on WhatsApp
-        </a>
-      </div>
-
-      <div className="rounded-2xl bg-emerald-50 border border-emerald-100 p-4 flex items-start gap-3 text-sm text-emerald-900">
-        <Download className="w-4 h-4 mt-1" />
-        <div>
-          <p className="font-semibold">Need the PDF?</p>
-          <p>Request the full day-by-day document straight to your inbox.</p>
-        </div>
-      </div>
-    </aside>
-  );
-};
-
 const PackageDetailPage: React.FC = () => {
   const { packageId } = useParams();
   const navigate = useNavigate();
@@ -447,7 +362,7 @@ const PackageDetailPage: React.FC = () => {
   useEffect(() => {
     if (!pkg) return;
     const initial: Record<string, boolean> = {};
-    pkg.detailedItinerary.forEach((day, index) => {
+    pkg.detailedItinerary.forEach((day) => {
       initial[day.day] = false;
     });
     setExpandedDays(initial);
@@ -618,7 +533,7 @@ const PackageDetailPage: React.FC = () => {
         <div className="mb-4" id="itinerary">
           <h2 className="text-xl font-bold text-emerald-600 uppercase mb-2">DAY-WISE ITINERARY</h2>
           <div className="space-y-0">
-            {pkg.detailedItinerary.map((day, idx) => {
+            {pkg.detailedItinerary.map((day) => {
               const isOpen = expandedDays[day.day];
               return (
                 <div key={day.day} className="bg-white border-b border-gray-200">
